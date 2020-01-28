@@ -3,6 +3,8 @@ project(pylon_camera)
 
 add_definitions("-std=gnu++11")
 #set(CMAKE_CXX_FLAGS "-g -Wall -Wno-unknown-pragmas -Wno-delete-non-virtual-dtor -Wno-unused-variable")
+set(CMAKE_CXX_FLAGS_DEBUG "-g3 -O3")
+set(CMAKE_CXX_FLAGS_RELEASE "-g3 -O3")
 set(
     CATKIN_COMPONENTS
      actionlib
