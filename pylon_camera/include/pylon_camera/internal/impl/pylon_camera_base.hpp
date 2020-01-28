@@ -398,9 +398,9 @@ bool PylonCameraImpl<CameraTrait>::grab(std::vector<uint8_t>& image)
         for (int i = 0; i < img_size_byte_ / 2; i++){
             shift_array[i] = convert_bits[i] << 4;
         }
-        image.assign((uint8_t *) shift_array, (uint8_t *) shift_array + img_size_byte_);
+//        image.assign((uint8_t *) shift_array, (uint8_t *) shift_array + img_size_byte_);
     } else {
-        image.assign(pImageBuffer, pImageBuffer + img_size_byte_);
+//        image.assign(pImageBuffer, pImageBuffer + img_size_byte_);
     }
 
     delete[] shift_array;
