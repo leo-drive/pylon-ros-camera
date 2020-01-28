@@ -435,7 +435,7 @@ bool PylonCameraImpl<CameraTrait>::grab(uint8_t* image)
         }
         memcpy(image, (uint8_t *) shift_array, img_size_byte_);
     } else {
-        memcpy(image, ptr_grab_result->GetBuffer(), img_size_byte_);
+//        memcpy(image, ptr_grab_result->GetBuffer(), img_size_byte_);
     }
 
     
