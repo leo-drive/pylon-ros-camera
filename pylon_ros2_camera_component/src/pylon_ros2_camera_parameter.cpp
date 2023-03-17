@@ -432,6 +432,11 @@ void PylonROS2CameraParameter::validateParameterSet(rclcpp::Node& nh)
         this->setFrameRate(nh, 5.0);
     }
 
+    this->setCameraMatrix(nh, this->camera_matrix_);
+    this->setDistortionCoefficients(nh, this->distortion_coefficients_);
+    this->setRectificationMatrix(nh, this->rectification_matrix_);
+    this->setProjectionMatrix(nh, this->projection_matrix_);
+
     if (this->exposure_given_ && (this->exposure_ <= 0.0 || this->exposure_ > 1e7))
     {
         RCLCPP_WARN_STREAM(LOGGER, "The specified exposure value - " << this->exposure_ << " ms - is out of valid range!"
@@ -522,6 +527,50 @@ void PylonROS2CameraParameter::setFrameRate(rclcpp::Node& nh, const double& fram
     this->frame_rate_ = frame_rate;
     
     nh.set_parameter(rclcpp::Parameter("frame_rate", this->frame_rate_));
+}
+
+void PylonROS2CameraParameter::setCameraMatrix(rclcpp::Node &nh, const std::vector<double> &camera_matrix) {
+    if (!nh.has_parameter("camera_matrix"))
+    {
+        nh.declare_parameter("camera_matrix", std::vector<double>());
+    }
+
+    this->camera_matrix_ = camera_matrix;
+
+    nh.get_parameter("camera_matrix", this->camera_matrix_);
+}
+
+void PylonROS2CameraParameter::setDistortionCoefficients(rclcpp::Node &nh, const std::vector<double> &distortion_coefficients) {
+    if (!nh.has_parameter("distortion_coefficients"))
+    {
+        nh.declare_parameter("distortion_coefficients", std::vector<double>());
+    }
+
+    this->distortion_coefficients_ = distortion_coefficients;
+
+    nh.get_parameter("distortion_coefficients", this->distortion_coefficients_);
+}
+
+void PylonROS2CameraParameter::setRectificationMatrix(rclcpp::Node &nh, const std::vector<double> &rectification_matrix) {
+    if (!nh.has_parameter("rectification_matrix"))
+    {
+        nh.declare_parameter("rectification_matrix", std::vector<double>());
+    }
+
+    this->rectification_matrix_ = rectification_matrix;
+
+    nh.get_parameter("rectification_matrix", this->rectification_matrix_);
+}
+
+void PylonROS2CameraParameter::setProjectionMatrix(rclcpp::Node &nh, const std::vector<double> &projection_matrix) {
+    if (!nh.has_parameter("projection_matrix"))
+    {
+        nh.declare_parameter("projection_matrix", std::vector<double>());
+    }
+
+    this->projection_matrix_ = projection_matrix;
+
+    nh.get_parameter("projection_matrix", this->projection_matrix_);
 }
 
 const std::string& PylonROS2CameraParameter::cameraInfoURL() const

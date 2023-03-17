@@ -103,6 +103,14 @@ public:
      */
     void setFrameRate(rclcpp::Node& nh, const double& frame_rate);
 
+    void setCameraMatrix(rclcpp::Node& nh, const std::vector<double>& camera_matrix);
+
+    void setDistortionCoefficients(rclcpp::Node& nh, const std::vector<double>& distortion_coefficients);
+
+    void setRectificationMatrix(rclcpp::Node& nh, const std::vector<double>& rectification_matrix);
+
+    void setProjectionMatrix(rclcpp::Node& nh, const std::vector<double>& projection_matrix);
+
     /**
      * Getter for the camera_info_url set from ros-parameter server
      */
@@ -325,6 +333,11 @@ public:
     * 2 = GrabStrategy_LatestImages
     */
     int grab_strategy_;
+
+    std::vector<double> camera_matrix_;
+    std::vector<double> distortion_coefficients_;
+    std::vector<double> rectification_matrix_;
+    std::vector<double> projection_matrix_;
 
 
 protected:

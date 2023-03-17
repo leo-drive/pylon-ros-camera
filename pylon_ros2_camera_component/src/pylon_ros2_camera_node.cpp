@@ -132,6 +132,8 @@ bool PylonROS2CameraNode::init()
     return false;
   }
 
+  this->setupRectification();
+
   // starting the grabbing procedure with the desired image-settings
   if (!this->startGrabbing())
   {
@@ -652,7 +654,7 @@ bool PylonROS2CameraNode::startGrabbing()
     // override initial camera info if the url is valid
     if (this->camera_info_manager_->loadCameraInfo(this->pylon_camera_parameter_set_.cameraInfoURL()))
     {
-      this->setupRectification();
+//      this->setupRectification();
       // set the correct tf frame_id
       sensor_msgs::msg::CameraInfo cam_info = this->camera_info_manager_->getCameraInfo();
       cam_info.header.frame_id = this->img_raw_msg_.header.frame_id;
@@ -738,6 +740,15 @@ bool PylonROS2CameraNode::startGrabbing()
       this->pylon_camera_->disableAllRunningAutoBrightessFunctions();
     }
   }
+
+    // Set camera info
+    sensor_msgs::msg::CameraInfo cam_info = this->camera_info_manager_->getCameraInfo();
+    cam_info.distortion_model = "plumb_bob";
+    cam_info.d = pylon_camera_parameter_set_.distortion_coefficients_;
+    std::copy_n(pylon_camera_parameter_set_.camera_matrix_.begin(), 9, cam_info.k.begin());
+    std::copy_n(pylon_camera_parameter_set_.rectification_matrix_.begin(), 9, cam_info.r.begin());
+    std::copy_n(pylon_camera_parameter_set_.projection_matrix_.begin(), 12, cam_info.p.begin());
+    this->camera_info_manager_->setCameraInfo(cam_info);
 
   RCLCPP_INFO_STREAM(LOGGER, "Startup settings: "
       << "encoding = '" << this->pylon_camera_->currentROSEncoding() << "', "
@@ -3793,7 +3804,7 @@ void PylonROS2CameraNode::setupRectification()
     this->cv_bridge_img_rect_ = new cv_bridge::CvImage();
   }
   this->cv_bridge_img_rect_->header = img_raw_msg_.header;
-  this->cv_bridge_img_rect_->encoding = img_raw_msg_.encoding;
+  this->cv_bridge_img_rect_->encoding = pylon_camera_parameter_set_.imageEncoding();
 }
 
 std::shared_ptr<GrabImagesAction::Result> PylonROS2CameraNode::grabRawImages(const std::shared_ptr<GrabImagesGoalHandle> goal_handle)
