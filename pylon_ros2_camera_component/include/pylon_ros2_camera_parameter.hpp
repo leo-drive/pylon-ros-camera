@@ -111,6 +111,10 @@ public:
 
     void setProjectionMatrix(rclcpp::Node& nh, const std::vector<double>& projection_matrix);
 
+    void setReverseX(rclcpp::Node& nh, const bool& reverse_x);
+
+    void setReverseY(rclcpp::Node& nh, const bool& reverse_y);
+
     /**
      * Getter for the camera_info_url set from ros-parameter server
      */
@@ -339,6 +343,8 @@ public:
     std::vector<double> rectification_matrix_;
     std::vector<double> projection_matrix_;
 
+    bool reverse_x_;
+    bool reverse_y_;
 
 protected:
     /**

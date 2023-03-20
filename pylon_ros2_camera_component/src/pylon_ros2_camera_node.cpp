@@ -741,6 +741,10 @@ bool PylonROS2CameraNode::startGrabbing()
     }
   }
 
+    // Set reverse x and y
+    this->reverseXY(pylon_camera_parameter_set_.reverse_x_, true);
+    this->reverseXY(pylon_camera_parameter_set_.reverse_y_, false);
+
     // Set camera info
     sensor_msgs::msg::CameraInfo cam_info = this->camera_info_manager_->getCameraInfo();
     cam_info.distortion_model = "plumb_bob";

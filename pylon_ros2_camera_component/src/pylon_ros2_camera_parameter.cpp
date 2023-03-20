@@ -437,6 +437,9 @@ void PylonROS2CameraParameter::validateParameterSet(rclcpp::Node& nh)
     this->setRectificationMatrix(nh, this->rectification_matrix_);
     this->setProjectionMatrix(nh, this->projection_matrix_);
 
+    this->setReverseX(nh, this->reverse_x_);
+    this->setReverseY(nh, this->reverse_y_);
+
     if (this->exposure_given_ && (this->exposure_ <= 0.0 || this->exposure_ > 1e7))
     {
         RCLCPP_WARN_STREAM(LOGGER, "The specified exposure value - " << this->exposure_ << " ms - is out of valid range!"
@@ -571,6 +574,28 @@ void PylonROS2CameraParameter::setProjectionMatrix(rclcpp::Node &nh, const std::
     this->projection_matrix_ = projection_matrix;
 
     nh.get_parameter("projection_matrix", this->projection_matrix_);
+}
+
+void PylonROS2CameraParameter::setReverseX(rclcpp::Node &nh, const bool &reverse_x) {
+    if (!nh.has_parameter("reverse_x"))
+    {
+        nh.declare_parameter<bool>("reverse_x", false);
+    }
+
+    this->reverse_x_ = reverse_x;
+
+    nh.get_parameter("reverse_x", this->reverse_x_);
+}
+
+void PylonROS2CameraParameter::setReverseY(rclcpp::Node &nh, const bool &reverse_y) {
+    if (!nh.has_parameter("reverse_y"))
+    {
+        nh.declare_parameter<bool>("reverse_y", false);
+    }
+
+    this->reverse_y_ = reverse_y;
+
+    nh.get_parameter("reverse_y", this->reverse_y_);
 }
 
 const std::string& PylonROS2CameraParameter::cameraInfoURL() const

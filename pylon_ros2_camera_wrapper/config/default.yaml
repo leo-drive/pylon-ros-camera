@@ -20,7 +20,7 @@
     #  The supported encodings are 'mono8', 'bgr8', 'rgb8', 'bayer_bggr8',
     #  'bayer_gbrg8' and 'bayer_rggb8'
     #  Default values are 'mono8' and 'rgb8'
-    #  image_encoding: "mono8"
+    image_encoding: "rgb8"
 
     #  Binning factor to get downsampled images. It refers here to any camera
     #  setting which combines rectangular neighborhoods of pixels into larger
@@ -45,6 +45,9 @@
     distortion_coefficients: [-0.335374, 0.107449, -0.000934, -0.000695, 0.000000]
     rectification_matrix: [1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.000000]
     projection_matrix: [858.959900, 0.000000, 755.238538, 0.000000, 0.000000, 954.952271, 557.810738, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000]
+
+    reverse_x: true
+    reverse_y: true
 
     ##########################################################################
     ######################## Image Intensity Settings ########################
