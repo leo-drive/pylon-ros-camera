@@ -41,10 +41,10 @@
     #  Default value is "" (empty) means default_shutter_mode
     # shutter_mode: ""
 
-    camera_matrix: [1051.301058, 0.000000, 746.065934, 0.000000, 1057.779841, 555.827273, 0.000000, 0.000000, 1.000000]
-    distortion_coefficients: [-0.335374, 0.107449, -0.000934, -0.000695, 0.000000]
+    camera_matrix: [1063.75744, 0.000000, 692.32672, 0.000000, 1065.05704, 523.68707, 0.000000, 0.000000, 1.000000]
+    distortion_coefficients: [-0.348538, 0.133907, -0.001840, -0.001149, 0.000000]
     rectification_matrix: [1.000000, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000, 0.000000, 0.000000, 1.000000]
-    projection_matrix: [858.959900, 0.000000, 755.238538, 0.000000, 0.000000, 954.952271, 557.810738, 0.000000, 0.000000, 0.000000, 1.000000, 0.000000]
+    projection_matrix: [877.65186, 0., 678.16599, 0., 0., 991.0946 , 533.8509, 0., 0.     ,   0.     ,   1.     ,   0.]
 
     reverse_x: true
     reverse_y: true
@@ -58,7 +58,7 @@
     ##########################################################################
 
     #  The exposure time in microseconds to be set after opening the camera.
-    # exposure: 1000.0
+    exposure: 12000.0
 
     #  The target gain in percent of the maximal value the camera supports
     #  For USB cameras, the gain is in dB, for GigE cameras it is given in so
